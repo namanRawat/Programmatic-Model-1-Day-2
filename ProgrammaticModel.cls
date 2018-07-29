@@ -23,7 +23,7 @@ public class ProgrammaticModel {
 
 
 	public static void traditionalLoop() {
-		List<Account> listAccount = [SELECT ID,Name	FROM Account];
+		List<Account> listAccount = [SELECT ID,Name FROM Account WHERE Industry = 'Media'];
 			for(Integer i=0; i<listAccount.size(); i++) {
 				System.debug(listAccount[i].Name+ ' ' + listAccount[i].ID);
 			}
@@ -38,7 +38,7 @@ public class ProgrammaticModel {
  */
 
 	public static void advanceLoop() {
-		List<Account> listAccount = [SELECT ID, Name FROM Account];
+		List<Account> listAccount = [SELECT ID, Name FROM Account WHERE Industry ='Media'];
 		for(Account account : listAccount ) {
 			System.debug(account.Name + ' ' + account.ID);
 		}
@@ -55,7 +55,7 @@ public class ProgrammaticModel {
 
 
 	public static void whileLoop() {
-		List<Account> listAccount = [SELECT ID, Name FROM Account];
+		List<Account> listAccount = [SELECT ID, Name FROM Account WHERE Industry = 'Media']];
 			Integer i=0;
 				while(i<listAccount.size()) {
 					System.debug(listAccount[i].Name+ ' ' + listAccount[i].ID);
@@ -73,7 +73,7 @@ public class ProgrammaticModel {
  */
 
 	public static Set<String> leadRecord() {
-		List<Lead> listLead = [SELECT ID, Name FROM Lead];
+		List<Lead> listLead = [SELECT ID, Name FROM Lead WHERE RecordType = 'Web'];
 		Set<String> leadSet = new Set<String>();
 
 
@@ -131,7 +131,7 @@ public class ProgrammaticModel {
  */
 
 	public static void updateAccount() {
-		List<Account> listAccount = [SELECT Id, Name FROM Account];
+		List<Account> listAccount = [SELECT Id, Name FROM Account WHERE Industry = 'Media'];
 		
 		for(Account account : listAccount){
 			account.Name = 'Eternus';
@@ -148,7 +148,7 @@ public class ProgrammaticModel {
  */
 
 	public static void deleteRecord() {
-		List<Contact> contact = [SELECT Id FROM Contact];
+		List<Contact> contact = [SELECT Id FROM Contact WHERE LastName = '' ];
 		Database.delete(contact , false);
 	}
 
@@ -194,7 +194,7 @@ public class ProgrammaticModel {
  */
 
 	public static Map<String,Account> fetchContactMap() {
-		List<Contact> contact = [SELECT Id, AccountId FROM Contact];
+		List<Contact> contact = [SELECT Id, AccountId FROM Contact WHERE LastName = ''];
 		
 		Map<String,Account> contactMap = new Map<String,Account>();
 
