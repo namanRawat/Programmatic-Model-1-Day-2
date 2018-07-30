@@ -149,9 +149,12 @@ public class ProgrammaticModel {
 
 	public static void deleteRecord() {
 		List<Contact> contact = [SELECT Id FROM Contact WHERE LastName = '' ];
-		Database.delete(contact , false);
-	}
-
+		 try {
+      Database.delete(contact, false);
+    } catch( DMLException ex ) {
+      System.debug(ex);
+    }
+   }
 /* Method to show use of Map
  *
  * @param: NA 
