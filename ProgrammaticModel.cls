@@ -17,7 +17,7 @@ public class ProgrammaticModel {
  *
  * @param: NA 
  *
- * @return: List of Account
+ * @return: NA
  *
  */
 
@@ -33,7 +33,7 @@ public class ProgrammaticModel {
  *
  * @param: NA 
  *
- * @return: List of Account
+ * @return: NA
  *
  */
 
@@ -49,7 +49,7 @@ public class ProgrammaticModel {
  *
  * @param: NA 
  *
- * @return: List of Account
+ * @return: NA
  *
  */
 
@@ -68,7 +68,7 @@ public class ProgrammaticModel {
  *
  * @param: NA 
  *
- * @return: Set of Lead ID
+ * @return: Set of String
  *
  */
 
@@ -84,31 +84,38 @@ public class ProgrammaticModel {
 	}
 
 /* Method to createAccount record and associated contact record
- *
+ * 
+ * Also demonstrating the save point and roll back
+ * 
  * @param: NA 
  *
- * @return: NA
+ * @return: Account
  *
  */
 
-	public static void accountRecord() {
-		Account account = new Account();
-		account.Name='Eternus';
-		insert account;
+	public static Account createAccount( String contactName) {
+    Account espl;
+    Savepoint sp = Database.setSavepoint();
+    try {      
+      espl = new Account( Name = 'Eternus' );
+      insert espl;
 
-		Contact contact = new Contact();
-		contact.LastName = 'Eternus Contact';
-		contact.AccountId = account.Id;
+      Contact esplContact = new Contact();
+      esplContact.LastName = contactName;
+      esplContact.Account = espl;
+      insert esplContact;
 
-		insert contact;
-
-	}
+    } catch( DMLException ex ) {
+      Database.rollback(sp);
+    }
+    return espl;
+   }
 
 /* Method to insert number of account in Account Object
  *
  * @param: Integer numberOfAccounts
  *
- * @return: List<Account>
+ * @return: NA
  *
  */
 
